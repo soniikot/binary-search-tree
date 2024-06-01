@@ -37,10 +37,36 @@ export class Tree {
 
     return root;
   }
-}
+  delete(root, key) {
+    if (root === null) return root;
 
+    if (key < root.key) root.leftChild = this.delete(root.leftChild, key);
+    else if (key > root.key)
+      root.rightChild = this.delete(root.rightChild, key);
+    else {
+      if (root.leftChild === null) return root.rightChild;
+      else if (root.rightChild === null) return root.leftChild;
+
+      root.data = this.minValue(root.rightChild);
+
+      root.rightChild = this.delete(root.rightChild, root.key);
+    }
+    return root;
+  }
+
+  minValue(node) {
+    let current = node;
+    while (current.leftChild !== null) {
+      current = current.leftChild;
+    }
+    return current.data;
+  }
+}
 const array = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
 const tree = new Tree(array);
-
+console.log(tree);
 tree.insertRec(tree.root, 33);
+tree.insertRec(tree.root, 10);
+prettyPrint(tree.root);
+tree.delete(tree.root, 9);
 prettyPrint(tree.root);
