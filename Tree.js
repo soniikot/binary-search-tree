@@ -40,8 +40,8 @@ export class Tree {
   delete(root, key) {
     if (root === null) return root;
 
-    if (key < root.key) root.leftChild = this.delete(root.leftChild, key);
-    else if (key > root.key)
+    if (key < root.data) root.leftChild = this.delete(root.leftChild, key);
+    else if (key > root.data)
       root.rightChild = this.delete(root.rightChild, key);
     else {
       if (root.leftChild === null) return root.rightChild;
@@ -64,9 +64,9 @@ export class Tree {
 }
 const array = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
 const tree = new Tree(array);
-console.log(tree);
-tree.insertRec(tree.root, 33);
+
+tree.insertRec(tree.root, 32);
 tree.insertRec(tree.root, 10);
 prettyPrint(tree.root);
-tree.delete(tree.root, 9);
+tree.delete(tree.root, 32);
 prettyPrint(tree.root);
