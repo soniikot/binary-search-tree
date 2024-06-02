@@ -3,7 +3,6 @@ import { prettyPrint } from "./prettyPrint.js";
 export class Tree {
   constructor(array) {
     this.root = this.buildTree(array);
-    this.array = array;
   }
 
   buildTree(array) {
@@ -29,14 +28,14 @@ export class Tree {
   insertRec(root, key) {
     if (root === null) {
       root = new Node(key);
-      array.push(key);
+
       return root;
     }
     if (key < root.data) {
       root.leftChild = this.insertRec(root.leftChild, key);
     } else if (key > root.data)
       root.rightChild = this.insertRec(root.rightChild, key);
-    array.push(key);
+
     return root;
   }
   delete(root, key) {
@@ -171,19 +170,3 @@ export class Tree {
     this.root = this.buildTree(values);
   }
 }
-
-const array = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
-const tree = new Tree(array);
-
-tree.insertRec(tree.root, 32);
-tree.insertRec(tree.root, 10);
-tree.insertRec(tree.root, 100);
-
-//console.log(tree.insertRec(tree.root, 120));
-prettyPrint(tree.root);
-console.log(tree.find(32));
-
-console.log(tree.levelOrder());
-console.log(tree.isBalanced());
-tree.rebalance();
-console.log(tree.isBalanced());
